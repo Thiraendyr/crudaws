@@ -17,14 +17,14 @@ public class ServiceAll {
 	private ServiceEloqua serviceEl;
 	
 	@Autowired
-	private ServiceOS serviceOs;
+	private ServiceOSC serviceOSC;
 	
 	//Llama a los métidos de eliminar de cada api para eliminarlos a la vez con el mismo email
 	public Void deleteFromAll(String email) {
 		
 		serviceRn.deleteRNContact(email);
 		serviceEl.deleteElContact(email);
-		serviceOs.deleteOSContact(email);
+		serviceOSC.deleteOSContact(email);
 		
 		return null;
 		
@@ -37,7 +37,7 @@ public class ServiceAll {
 
 		contactos.add(serviceRn.serializarObjecto(json));
 		contactos.add(serviceEl.serializarObjecto(json));
-		contactos.add(serviceOs.serializarObjectoContact(json));
+		contactos.add(serviceOSC.serializarObjectoContact(json));
 		
 		return contactos;
 	}

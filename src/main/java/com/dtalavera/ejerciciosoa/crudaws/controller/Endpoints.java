@@ -27,7 +27,7 @@ public class Endpoints {
 	private ServiceEloqua serviceEl;
 	
 	@Autowired
-	private ServiceOS serviceOS;
+	private ServiceOSC serviceOSC;
 	
 //////////////////////////////////////Operaciones simultaneas para las tres plataformas
 	
@@ -88,18 +88,18 @@ public class Endpoints {
 	//Endpoint Delete de OSC
 	@RequestMapping(value = "os/contacts/{email}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> deleteOSContact(@PathVariable("email") String email) {
-		return new ResponseEntity<Void>(serviceOS.deleteOSContact(email), HttpStatus.OK);
+		return new ResponseEntity<Void>(serviceOSC.deleteOSContact(email), HttpStatus.OK);
 	}
 	
 	//Endpoint Get de OSC
 	@RequestMapping(value = "os/contacts/{email}", method = RequestMethod.GET)
 	public ResponseEntity<Contact> getOSContact(@PathVariable("email") String email) {
-		return new ResponseEntity<Contact>(serviceOS.getContact(email), HttpStatus.OK);
+		return new ResponseEntity<Contact>(serviceOSC.getContact(email), HttpStatus.OK);
 	}
 
 	//Endpoint Post de OSC
 	@RequestMapping(value = "os/contacts", method = RequestMethod.POST)
 	public ResponseEntity<Contact> createOSContact(@RequestBody String jsonContact) {
-		return new ResponseEntity<Contact>(serviceOS.serializarObjectoContact(jsonContact), HttpStatus.OK);
+		return new ResponseEntity<Contact>(serviceOSC.serializarObjectoContact(jsonContact), HttpStatus.OK);
 	}
 }

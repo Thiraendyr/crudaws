@@ -16,25 +16,25 @@ public class Auth {
 		HttpPost hp = null;
 		switch(api) {
 		case "rn":
-			hp = new HttpPost(Config.getUrlRN() + "/services/rest/connect/v1.3/contacts");
-			hp.setHeader(HttpHeaders.AUTHORIZATION, new String("Basic " + Base64.getEncoder().encodeToString((Config.getUsrRN() + ":" + Config.getPwdRN()).getBytes())));
+			hp = new HttpPost(ConfigRN.getUrl().concat(ConfigRN.getEndpt()));
+			hp.setHeader(HttpHeaders.AUTHORIZATION, new String(Config.getBasic().concat(Base64.getEncoder().encodeToString((ConfigRN.getUsr().concat(Config.getPuntos()).concat(ConfigRN.getPwd())).getBytes()))));
 			break;
 		case "el":
 			hp = new HttpPost(ConfigEl.getUrl().concat(ConfigEl.getEndpt()));
-			hp.setHeader(HttpHeaders.AUTHORIZATION, new String("Basic " + Base64.getEncoder().encodeToString((Config.getUsrEl() + ":" + Config.getPwdEl()).getBytes())));
+			hp.setHeader(HttpHeaders.AUTHORIZATION, new String(Config.getBasic().concat(Base64.getEncoder().encodeToString((ConfigEl.getUsr().concat(Config.getPuntos()).concat(ConfigEl.getPwd())).getBytes()))));
 			break;
 		case "os":
-			hp = new HttpPost(Config.getUrlOS() + "/crmRestApi/resources/latest/contacts");
-			hp.setHeader(HttpHeaders.AUTHORIZATION, new String("Basic " + Base64.getEncoder().encodeToString((Config.getUsrOS() + ":" + Config.getPwdOS()).getBytes())));
+			hp = new HttpPost(ConfigOSC.getUrl().concat(ConfigOSC.getEndptCnt()));
+			hp.setHeader(HttpHeaders.AUTHORIZATION, new String(Config.getBasic().concat(Base64.getEncoder().encodeToString((ConfigOSC.getUsr().concat(Config.getPuntos()).concat(ConfigOSC.getPwd())).getBytes()))));
 			break;
 		case "osLead":
-			hp = new HttpPost(Config.getUrlOS() + "/crmRestApi/resources/latest/leads");
-			hp.setHeader(HttpHeaders.AUTHORIZATION, new String("Basic " + Base64.getEncoder().encodeToString((Config.getUsrOS() + ":" + Config.getPwdOS()).getBytes())));
+			hp = new HttpPost(ConfigOSC.getUrl().concat(ConfigOSC.getEndptLead()));
+			hp.setHeader(HttpHeaders.AUTHORIZATION, new String(Config.getBasic().concat(Base64.getEncoder().encodeToString((ConfigOSC.getUsr().concat(Config.getPuntos()).concat(ConfigOSC.getPwd())).getBytes()))));
 			break;
 		}
 		hp.setEntity(new StringEntity(json));
-		hp.setHeader("Accept", "application/json");
-		hp.setHeader("Content-type", "application/json");
+		hp.setHeader(Config.getAccept(), Config.getApplicationJson());
+		hp.setHeader(Config.getContent(), Config.getApplicationJson());
 	    return hp;
 	}
 	
@@ -43,20 +43,20 @@ public class Auth {
 		HttpDelete hd = null;
 		switch(api) {
 		case "rn":
-			hd = new HttpDelete(Config.getUrlRN() + "/services/rest/connect/v1.3/contacts/" + id);
-			hd.setHeader(HttpHeaders.AUTHORIZATION, new String("Basic " + Base64.getEncoder().encodeToString((Config.getUsrRN() + ":" + Config.getPwdRN()).getBytes())));
+			hd = new HttpDelete(ConfigRN.getUrl().concat(ConfigRN.getEndpt()).concat(Config.getSlash()).concat(String.valueOf(id)));
+			hd.setHeader(HttpHeaders.AUTHORIZATION, new String(Config.getBasic().concat(Base64.getEncoder().encodeToString((ConfigRN.getUsr().concat(Config.getPuntos()).concat(ConfigRN.getPwd())).getBytes()))));
 			break;
 		case "el":
-			hd = new HttpDelete(ConfigEl.getUrl().concat("/").concat(String.valueOf(id)));
-			hd.setHeader(HttpHeaders.AUTHORIZATION, new String("Basic " + Base64.getEncoder().encodeToString((Config.getUsrEl() + ":" + Config.getPwdEl()).getBytes())));
+			hd = new HttpDelete(ConfigEl.getUrl().concat(ConfigEl.getEndpt()).concat(Config.getSlash()).concat(String.valueOf(id)));
+			hd.setHeader(HttpHeaders.AUTHORIZATION, new String(Config.getBasic().concat(Base64.getEncoder().encodeToString((ConfigEl.getUsr().concat(Config.getPuntos()).concat(ConfigEl.getPwd())).getBytes()))));
 			break;
 		case "os":
-			hd = new HttpDelete(Config.getUrlOS() + "/crmRestApi/resources/latest/contacts/" + id);
-			hd.setHeader(HttpHeaders.AUTHORIZATION, new String("Basic " + Base64.getEncoder().encodeToString((Config.getUsrOS() + ":" + Config.getPwdOS()).getBytes())));
+			hd = new HttpDelete(ConfigOSC.getUrl().concat(ConfigOSC.getEndptCnt()).concat(Config.getSlash()).concat(String.valueOf(id)));
+			hd.setHeader(HttpHeaders.AUTHORIZATION, new String(Config.getBasic().concat(Base64.getEncoder().encodeToString((ConfigOSC.getUsr().concat(Config.getPuntos()).concat(ConfigOSC.getPwd())).getBytes()))));
 			break;
 		case "osLead":
-			hd = new HttpDelete(Config.getUrlOS() + "/crmRestApi/resources/latest/leads/" + id);
-			hd.setHeader(HttpHeaders.AUTHORIZATION, new String("Basic " + Base64.getEncoder().encodeToString((Config.getUsrOS() + ":" + Config.getPwdOS()).getBytes())));
+			hd = new HttpDelete(ConfigOSC.getUrl().concat(ConfigOSC.getEndptLead()).concat(Config.getSlash()).concat(String.valueOf(id)));
+			hd.setHeader(HttpHeaders.AUTHORIZATION, new String(Config.getBasic().concat(Base64.getEncoder().encodeToString((ConfigOSC.getUsr().concat(Config.getPuntos()).concat(ConfigOSC.getPwd())).getBytes()))));
 			break;
 		}
 	    return hd;
@@ -67,23 +67,23 @@ public class Auth {
 		HttpGet hg = null;
 		switch(api) {
 		case "rn":
-			hg = new HttpGet(Config.getUrlRN() + "/services/rest/connect/v1.3/contacts?q=emails.address='" + email + "'");
-			hg.setHeader(HttpHeaders.AUTHORIZATION, new String("Basic " + Base64.getEncoder().encodeToString((Config.getUsrRN() + ":" + Config.getPwdRN()).getBytes())));
+			hg = new HttpGet(ConfigRN.getUrl().concat(ConfigRN.getEndpt()).concat(ConfigRN.getQuery()).concat(email).concat(Config.getComilla()));
+			hg.setHeader(HttpHeaders.AUTHORIZATION, new String(Config.getBasic().concat(Base64.getEncoder().encodeToString((ConfigRN.getUsr().concat(Config.getPuntos()).concat(ConfigRN.getPwd())).getBytes()))));
 			break;
 		case "el":
-			hg = new HttpGet(ConfigEl.getUrl().concat(ConfigEl.getEndpt()).concat(ConfigEl.getQuery()).concat("'").concat(email).concat("'"));
-			hg.setHeader(HttpHeaders.AUTHORIZATION, new String("Basic " + Base64.getEncoder().encodeToString((Config.getUsrEl() + ":" + Config.getPwdEl()).getBytes())));
+			hg = new HttpGet(ConfigEl.getUrl().concat(ConfigEl.getEndpt()).concat(ConfigEl.getQuery()).concat(email).concat(Config.getComilla()));
+			hg.setHeader(HttpHeaders.AUTHORIZATION, new String(Config.getBasic().concat(Base64.getEncoder().encodeToString((ConfigEl.getUsr().concat(Config.getPuntos()).concat(ConfigEl.getPwd())).getBytes()))));
 			break;
 		case "os":
-			hg = new HttpGet(Config.getUrlOS() + "/crmRestApi/resources/latest/contacts?q=EmailAddress=" + email);
-			hg.setHeader(HttpHeaders.AUTHORIZATION, new String("Basic " + Base64.getEncoder().encodeToString((Config.getUsrOS() + ":" + Config.getPwdOS()).getBytes())));
+			hg = new HttpGet(ConfigOSC.getUrl().concat(ConfigOSC.getEndptCnt()).concat(ConfigOSC.getQueryCnt()).concat(email).concat(Config.getComilla()));
+			hg.setHeader(HttpHeaders.AUTHORIZATION, new String(Config.getBasic().concat(Base64.getEncoder().encodeToString((ConfigOSC.getUsr().concat(Config.getPuntos()).concat(ConfigOSC.getPwd())).getBytes()))));
 			break;
 		case "osLead":
-			hg = new HttpGet(Config.getUrlOS() + "/crmRestApi/resources/latest/leads?q=PrimaryContactEmailAddress=" + email);
-			hg.setHeader(HttpHeaders.AUTHORIZATION, new String("Basic " + Base64.getEncoder().encodeToString((Config.getUsrOS() + ":" + Config.getPwdOS()).getBytes())));
+			hg = new HttpGet(ConfigOSC.getUrl().concat(ConfigOSC.getEndptLead()).concat(ConfigOSC.getQueryLead()).concat(email).concat(Config.getComilla()));
+			hg.setHeader(HttpHeaders.AUTHORIZATION, new String(Config.getBasic().concat(Base64.getEncoder().encodeToString((ConfigOSC.getUsr().concat(Config.getPuntos()).concat(ConfigOSC.getPwd())).getBytes()))));
 			break;
 		}
-		hg.addHeader("Accept", "application/json");
+		hg.addHeader(Config.getAccept(), Config.getApplicationJson());
 	    return hg;
 	}
 	
