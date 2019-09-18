@@ -145,6 +145,7 @@ public class ServiceOS {
 			contactOs.setFirstName(jsonObject.getString("firstName"));
 			contactOs.setLastName(jsonObject.getString("lastName"));
 			contactOs.setEmailAddress(jsonObject.getString("emailAddress"));
+
 			if(GetMethods.getOSContactByEmail(contactOs.getEmailAddress()) == null)
 				existe = false;
 			else
@@ -153,7 +154,7 @@ public class ServiceOS {
 			Contact contact = createOSContact(new ObjectMapper().writeValueAsString(contactOs), jsonObject.getString("emailAddress"));
 			serializarObjectoLead(contact, contact.getEmail());
 
-			if(existe)
+			if(!existe)
 				return contact;
 
 		} catch(IOException | JSONException e) {

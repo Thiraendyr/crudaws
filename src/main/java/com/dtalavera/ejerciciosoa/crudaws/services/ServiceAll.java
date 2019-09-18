@@ -34,16 +34,10 @@ public class ServiceAll {
 	public List<Contact> createAtAll(String json) {
 
 		List<Contact> contactos = new ArrayList<Contact>();
-		Contact c;
-		c = serviceRn.serializarObjecto(json);
-		System.out.println("createAtAll RN " + c);
-		contactos.add(c);
-		c = serviceEl.serializarObjecto(json);
-		System.out.println("createAtAll El " + c);
-		contactos.add(c);
-		c = serviceOs.serializarObjectoContact(json);
-		System.out.println("createAtAll OS " + c);
-		contactos.add(c);
+
+		contactos.add(serviceRn.serializarObjecto(json));
+		contactos.add(serviceEl.serializarObjecto(json));
+		contactos.add(serviceOs.serializarObjectoContact(json));
 		
 		return contactos;
 	}
