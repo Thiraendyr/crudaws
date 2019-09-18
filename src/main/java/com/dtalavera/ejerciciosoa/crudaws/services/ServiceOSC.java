@@ -14,7 +14,6 @@ import org.springframework.boot.configurationprocessor.json.JSONObject;
 import com.dtalavera.ejerciciosoa.crudaws.config.Auth;
 import com.dtalavera.ejerciciosoa.crudaws.entity.Contact;
 import com.dtalavera.ejerciciosoa.crudaws.methods.GetMethods;
-import com.dtalavera.ejerciciosoa.crudaws.methods.ReplaceChars;
 import com.dtalavera.ejerciciosoa.crudaws.models.OSC.ContactOSC;
 import com.dtalavera.ejerciciosoa.crudaws.models.OSC.LeadOSC;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -31,7 +30,7 @@ public class ServiceOSC {
 	//Busca un Contact por email
 	public Contact getContact(String email) {
 		try {
-			return GetMethods.getOSContactByEmail(ReplaceChars.transFormarLetras(email));
+			return GetMethods.getOSContactByEmail(email);
 			
 		} catch (IOException | JSONException e) {
 			e.printStackTrace();

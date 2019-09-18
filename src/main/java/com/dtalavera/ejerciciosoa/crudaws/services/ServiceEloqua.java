@@ -2,7 +2,6 @@ package com.dtalavera.ejerciciosoa.crudaws.services;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -14,12 +13,10 @@ import org.springframework.boot.configurationprocessor.json.JSONObject;
 import com.dtalavera.ejerciciosoa.crudaws.config.Auth;
 import com.dtalavera.ejerciciosoa.crudaws.entity.Contact;
 import com.dtalavera.ejerciciosoa.crudaws.methods.GetMethods;
-import com.dtalavera.ejerciciosoa.crudaws.methods.ReplaceChars;
 import com.dtalavera.ejerciciosoa.crudaws.models.El.ContactEl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 @org.springframework.stereotype.Service
 public class ServiceEloqua{
@@ -33,7 +30,7 @@ public class ServiceEloqua{
 	//Devuelve el Contact recibiendo el email
 	public Contact getContact(String email) {
 		try {
-			return GetMethods.getElContactByEmail(ReplaceChars.transFormarLetras(email));
+			return GetMethods.getElContactByEmail(email);
 
 		} catch (IOException | JSONException e) {
 			e.printStackTrace();
@@ -92,11 +89,11 @@ public class ServiceEloqua{
 			
 			ContactEl contactEl = new ContactEl();
 			contactEl.setId(null);;
-			contactEl.setFirstName(ReplaceChars.transFormarLetras(jsonObject.getString("firstName")));
-			contactEl.setLastName(ReplaceChars.transFormarLetras(jsonObject.getString("lastName")));
-			contactEl.setEmailAddress(ReplaceChars.transFormarLetras(jsonObject.getString("emailAddress")));
+			contactEl.setFirstName(jsonObject.getString("firstName"));
+			contactEl.setLastName(jsonObject.getString("lastName"));
+			contactEl.setEmailAddress(jsonObject.getString("emailAddress"));
 				
-			return createElContact(new ObjectMapper().writeValueAsString(contactEl), ReplaceChars.transFormarLetras(jsonObject.getString("emailAddress")));
+			return createElContact(new ObjectMapper().writeValueAsString(contactEl), jsonObject.getString("emailAddress"));
 
 		} catch (JSONException | JsonProcessingException e) {
 			e.printStackTrace();

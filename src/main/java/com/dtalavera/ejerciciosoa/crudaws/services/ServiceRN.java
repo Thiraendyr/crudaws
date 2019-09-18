@@ -14,7 +14,6 @@ import org.springframework.boot.configurationprocessor.json.JSONObject;
 import com.dtalavera.ejerciciosoa.crudaws.config.Auth;
 import com.dtalavera.ejerciciosoa.crudaws.entity.Contact;
 import com.dtalavera.ejerciciosoa.crudaws.methods.GetMethods;
-import com.dtalavera.ejerciciosoa.crudaws.methods.ReplaceChars;
 import com.dtalavera.ejerciciosoa.crudaws.models.RN.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -31,7 +30,7 @@ public class ServiceRN {
 	//Devuelve un Contact recibiendo un email
 	public Contact getContact(String email) {
 		try {
-			return GetMethods.getRNContactByEmail(ReplaceChars.transFormarLetras(email));
+			return GetMethods.getRNContactByEmail(email);
 			
 		} catch (IOException | JSONException e) {
 			e.printStackTrace();
@@ -94,10 +93,10 @@ public class ServiceRN {
 			
 			ContactRN contactRn = new ContactRN();
 			contactRn.setId(null);
-			contactRn.setName(new Name(ReplaceChars.transFormarLetras(jsonObject.getString("firstName")),ReplaceChars.transFormarLetras(jsonObject.getString("lastName"))));
-			contactRn.setEmails(new Emails(ReplaceChars.transFormarLetras(jsonObject.getString("emailAddress")), new AddressType(0)));
+			contactRn.setName(new Name(jsonObject.getString("firstName"),jsonObject.getString("lastName")));
+			contactRn.setEmails(new Emails(jsonObject.getString("emailAddress"), new AddressType(0)));
 
-			return createRNContact(new ObjectMapper().writeValueAsString(contactRn),ReplaceChars.transFormarLetras(jsonObject.getString("emailAddress")));
+			return createRNContact(new ObjectMapper().writeValueAsString(contactRn),jsonObject.getString("emailAddress"));
 			
 		}catch(JSONException | JsonProcessingException e) {
 			e.printStackTrace();
