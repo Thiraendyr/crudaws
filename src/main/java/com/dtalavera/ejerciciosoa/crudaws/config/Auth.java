@@ -20,7 +20,7 @@ public class Auth {
 			hp.setHeader(HttpHeaders.AUTHORIZATION, new String("Basic " + Base64.getEncoder().encodeToString((Config.getUsrRN() + ":" + Config.getPwdRN()).getBytes())));
 			break;
 		case "el":
-			hp = new HttpPost(Config.getUrlEl() + "/api/REST/1.0/data/contact");
+			hp = new HttpPost(ConfigEl.getUrl().concat(ConfigEl.getEndpt()));
 			hp.setHeader(HttpHeaders.AUTHORIZATION, new String("Basic " + Base64.getEncoder().encodeToString((Config.getUsrEl() + ":" + Config.getPwdEl()).getBytes())));
 			break;
 		case "os":
@@ -47,7 +47,7 @@ public class Auth {
 			hd.setHeader(HttpHeaders.AUTHORIZATION, new String("Basic " + Base64.getEncoder().encodeToString((Config.getUsrRN() + ":" + Config.getPwdRN()).getBytes())));
 			break;
 		case "el":
-			hd = new HttpDelete(Config.getUrlEl() + "/api/REST/1.0/data/contact/" + id);
+			hd = new HttpDelete(ConfigEl.getUrl().concat("/").concat(String.valueOf(id)));
 			hd.setHeader(HttpHeaders.AUTHORIZATION, new String("Basic " + Base64.getEncoder().encodeToString((Config.getUsrEl() + ":" + Config.getPwdEl()).getBytes())));
 			break;
 		case "os":
@@ -71,7 +71,7 @@ public class Auth {
 			hg.setHeader(HttpHeaders.AUTHORIZATION, new String("Basic " + Base64.getEncoder().encodeToString((Config.getUsrRN() + ":" + Config.getPwdRN()).getBytes())));
 			break;
 		case "el":
-			hg = new HttpGet(Config.getUrlEl() + "/API/REST/1.0/data/contacts?search=emailAddress='" + email + "'");
+			hg = new HttpGet(ConfigEl.getUrl().concat(ConfigEl.getEndpt()).concat(ConfigEl.getQuery()).concat("'").concat(email).concat("'"));
 			hg.setHeader(HttpHeaders.AUTHORIZATION, new String("Basic " + Base64.getEncoder().encodeToString((Config.getUsrEl() + ":" + Config.getPwdEl()).getBytes())));
 			break;
 		case "os":
